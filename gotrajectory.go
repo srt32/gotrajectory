@@ -38,12 +38,7 @@ func GetStories(accountName, projectName string) ([]Story, error) {
     return nil, err
   }
 
-  stories := make([]Story, len(r.Stories))
-  for i, story := range r.Stories {
-    stories[i] = story
-  }
-
-  return stories, nil
+  return r.Stories, nil
 }
 
 func StoriesUrl(accountName, projectName string) (url string) {
