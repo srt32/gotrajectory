@@ -1,6 +1,7 @@
 package gotrajectory
 
 import (
+  "fmt"
   "os"
   "reflect"
   "testing"
@@ -45,15 +46,18 @@ func TestGetStories(t *testing.T) {
 
   for _, test := range storyTests {
     attribute := test.attribute
-    //actual := stories[0].attribute
-    typ := reflect.TypeOf(stories[0])
-    field, _ := typ.FieldByName(attribute)
-    actual_attr := stories[0].Call(field)
+    fmt.Println(attribute)
+    story := stories[0]
+    attributeFunction := reflect.ValueOf(&story).MethodByName("Title")
+    fmt.Println(attributeFunction)
 
-    if actual_attr != test.expected {
-      t.Fatalf("FAIL: Expected: %s. Got: %s", test.attribute, actual_attr)
-    } else {
-      t.Log("Passed")
-    }
+    actual := attributeFunction.Call([]reflect.Value{})
+    fmt.Println(actual)
+
+    //if actual != test.expected {
+    //  t.Fatalf("FAIL: Expected: %s. Got: %s", test.attribute, actual_attr)
+    //} else {
+    //  t.Log("Passed")
+    //}
   }
 }
